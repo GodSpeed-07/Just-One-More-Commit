@@ -18,7 +18,7 @@ def run_cmd(cmd, description, env=None):
         print(f"Stderr: {result.stderr}")
     return result
 
-repo_path = "/Users/shreyanshdangar/Desktop/OnlyCommits/Just-One-More-Commit"
+repo_path = "/Users/shreyanshdangar/Desktop/Pushes/Just-One-More-Commit"
 os.chdir(repo_path)
 
 # Set git config
@@ -32,20 +32,14 @@ start_date = datetime(2026, 1, 1)
 end_date = datetime(2026, 4, 9)
 total_days = (end_date - start_date).days + 1  # inclusive: 99 days
 
-# Commit distribution: 100,000 commits across 99 days
-# 10 days at 1011, 89 days at 1010
-commits_distribution = {}
-for i in range(total_days):
-    if i < 10:
-        commits_distribution[i] = 1011
-    else:
-        commits_distribution[i] = 1010
+# Commit distribution: 100,000 commits per day across 99 days
+commits_per_day = 100000
+total_commits = commits_per_day * total_days
 
-# Verify total
-total_commits = sum(commits_distribution.values())
+# Verify totals
 print(f"Total commits to make: {total_commits}")
 print(f"Total days: {total_days}")
-assert total_commits == 100000, f"Total commits must be 100,000, got {total_commits}"
+print(f"Commits per day: {commits_per_day}")
 assert total_days == 99, f"Total days must be 99, got {total_days}"
 
 total_pushed = 0
@@ -56,7 +50,7 @@ commits_since_push = 0
 for day_idx in range(total_days):
     current_date = start_date + timedelta(days=day_idx)
     date_str = current_date.strftime("%Y-%m-%d")
-    commits_today = commits_distribution[day_idx]
+    commits_today = commits_per_day
     
     # Date for git commits (12:00 UTC)
     date_with_time = current_date.strftime("%Y-%m-%d 12:00:00 +0000")
@@ -133,6 +127,8 @@ for day_idx in range(total_days):
     commits_since_push = 0
     print(f"Day {date_str} complete — {commits_today} commits pushed (total: {total_pushed})")
 
+
 print("\n=== EXECUTION COMPLETE ===")
 print(f"All {total_commits} commits pushed successfully!")
 print(f"Date range: {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')} (99 days)")
+print(f"Daily rate: {commits_per_day} commits/day")

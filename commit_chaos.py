@@ -20,7 +20,7 @@ run_cmd('git config user.email "shreyanshdangar5@gmail.com"', "Setting git email
 run_cmd('git config user.name "GodSpeed-07"', "Setting git name")
 
 file_path = "Readme.md?"
-total_cycles = 3  # For verification, run only 3 cycles first
+total_cycles = 5000  # 5000 cycles = 10000 commits
 
 # First, run one cycle manually and push to verify
 print("Running first cycle manually...")
